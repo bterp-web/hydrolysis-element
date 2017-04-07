@@ -1,5 +1,6 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/hydrolysis-element/hydrolysis-element.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 </head><body><dom-module id="bio110-app">
   <template>
@@ -26,6 +27,8 @@
       <hydrolysis-element></hydrolysis-element>
       <p>This animation also depicts a hydrolysis reaction (a type of catabolism whereby a polymer is broken down by the addition of water).  Hit the "home" icon to return to the beginning; select condensation and hit play.</p>
     </div>
+    
+    <paper-toast text="Hydrolysis was played"></paper-toast>
   </template>
 
   <script>
@@ -39,6 +42,15 @@
           value: 'bio110-app',
         },
       },
+      ready: function() {
+        var hydrolysisEl = this.$$('hydrolysis-element');
+        var toast = this.$$('paper-toast');
+        hydrolysisEl.addEventListener('action', function(e) {
+          if (e.detail == 'play') {
+            toast.open();
+          }
+        });
+      }
 
     });
   </script>

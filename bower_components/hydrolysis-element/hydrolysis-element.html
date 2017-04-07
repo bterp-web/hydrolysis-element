@@ -91,6 +91,7 @@
         },
       },
       ready: function() {
+        var root$ = this;
         var tl = new TimelineMax();
         var playButton = this.$$('#play-button');
         var replayButton = this.$$('#replay-button');
@@ -166,12 +167,14 @@
         playButton.addEventListener('click', function(e) {
           e.preventDefault();
           tl.play();
+          root$.fire('action', 'play');
         });
         // replay button
         replayButton.addEventListener('click', function(e) {
           e.preventDefault();
           tl.progress(0);
           tl.pause();
+          root$.fire('action', 'restart');
         });
       }
 
