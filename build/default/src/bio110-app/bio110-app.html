@@ -1,0 +1,46 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/hydrolysis-element/hydrolysis-element.html">
+
+</head><body><dom-module id="bio110-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin-top: 10vw;
+        margin-top: 10vmin;
+        padding: 2em;
+      }
+      .container > * {
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .container > hydrolysis-element {
+        max-width: 620px;
+        box-shadow: 1px 1px 4px rgba(0,0,0, 0.2);
+      }
+    </style>
+    <div class="container">
+      <h1>Hydrolysis and Condensation</h1>
+      <p>There are thousands of different types of biochemical reactions. Although they may involve the joining or breaking down of a myriad of molecules, most use the same basic chemical reaction. Anabolic reactions typically involve the joining of monomers by the removal of a water molecule. In this case a hydroxide (OH) is removed from one molecule and a hydrogen (H) is removed from the adjacent combining molecule. This type of reaction, termed condensation synthesis (or dehydration synthesis), is illustrated in the animation shown here. Select condensation, and hit play.</p>
+      <hydrolysis-element></hydrolysis-element>
+      <p>This animation also depicts a hydrolysis reaction (a type of catabolism whereby a polymer is broken down by the addition of water).  Hit the "home" icon to return to the beginning; select condensation and hit play.</p>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'bio110-app',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'bio110-app',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
+</body></html>

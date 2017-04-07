@@ -1,0 +1,180 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+<!--
+`hydrolysis-element`
+
+
+@demo demo/index.html 
+-->
+
+<dom-module id="hydrolysis-element">
+  <template>
+    <style>
+      :host {
+        --hydrolysis-element-bg-color: #f5f5f5;
+        display: block;
+        border: 5px solid var(--hydrolysis-element-bg-color);
+      }
+      h1 {
+        font-size: 2em;
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .buttons {
+        padding: 1em;
+        background-color: var(--hydrolysis-element-bg-color);
+        text-align: center;
+      }
+    </style>
+    <div class="buttons">
+        <paper-button raised id="play-button">Play</paper-button>
+        <paper-button raised id="replay-button">Replay</paper-button>
+      </a>
+    </div>
+    <h1>Hydrolysis</h1>
+    <svg id="circles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 128">
+      <title>Hydrolysis</title>
+      <g id="circle">
+        <line id="circle-line" x1="231" y1="33.5" x2="305.5" y2="33.5" fill="none" stroke="#8bc53f" stroke-miterlimit="10"/>
+        <circle id="circle-circle" cx="267.75" cy="32.25" r="22.75" fill="#8bc53f"/>
+        <text transform="translate(244.83 75.83)" font-size="12" fill="#231f20" font-family="OpenSans, Open Sans">Monomer</text>
+      </g>
+      <g id="circle-2" data-name="circle">
+        <line id="circle-line-2" data-name="circle-line" x1="167" y1="33.5" x2="241.5" y2="33.5" fill="none" stroke="#8bc53f" stroke-miterlimit="10"/>
+        <circle id="circle-circle-2" data-name="circle-circle" cx="203.75" cy="32.25" r="22.75" fill="#8bc53f"/>
+      </g>
+      <g id="circle-3" data-name="circle">
+        <line id="circle-line-3" data-name="circle-line" x1="106" y1="33.5" x2="180.5" y2="33.5" fill="none" stroke="#8bc53f" stroke-miterlimit="10"/>
+        <circle id="circle-circle-3" data-name="circle-circle" cx="142.75" cy="32.25" r="22.75" fill="#8bc53f"/>
+        <text id="long-polymer-text" transform="translate(127.83 75.83)" font-size="12" fill="#231f20" font-family="OpenSans, Open Sans">Longer Polymer</text>
+        <text id="short-polymer-text" transform="translate(109.83 75.83)" font-size="12" fill="#231f20" font-family="OpenSans, Open Sans">Short Polymer</text>
+      </g>
+      <g id="circle-4" data-name="circle">
+        <line id="circle-line-4" data-name="circle-line" x1="45.5" y1="33.5" x2="120" y2="33.5" fill="none" stroke="#8bc53f" stroke-miterlimit="10"/>
+        <circle id="circle-circle-4" data-name="circle-circle" cx="82.25" cy="32.25" r="22.75" fill="#8bc53f"/>
+        <text transform="translate(10.58 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">H</text>
+        <text transform="translate(25.83 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">O</text>
+      </g>
+      <g id="h-text">
+        <text transform="translate(315 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">H</text>
+      </g>
+      <g id="h2o-text">
+        <text id="htext2" transform="translate(419.16 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">H</text>
+        <text id="otext2" transform="translate(442.99 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">O</text>
+        <text id="htext3" transform="translate(459.99 40.83)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">H</text>
+        <g id="two">
+          <text transform="translate(436.16 47)" font-size="14" fill="#231f20" font-family="OpenSans, Open Sans">2</text>
+        </g>
+      </g>
+      <g id="plus-text">
+        <g id="plus">
+          <text transform="translate(372.16 41)" font-size="21" fill="#231f20" font-family="OpenSans, Open Sans">+</text>
+        </g>
+      </g>
+    </svg>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'hydrolysis-element',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'hydrolysis-element',
+        },
+      },
+      ready: function() {
+        var tl = new TimelineMax();
+        var playButton = this.$$('#play-button');
+        var replayButton = this.$$('#replay-button');
+        var svg = this.$$('#circles');
+        var shortPolymertext = svg.getElementById('short-polymer-text');
+        var longPolymertext = svg.getElementById('long-polymer-text');
+        var circle = svg.getElementById('circle');
+        var circleLabel = circle.querySelector('text');
+        var h2oText = svg.getElementById('h2o-text');
+        var hText = svg.getElementById('h-text');
+        var plusText = svg.getElementById('plus-text');
+        var two = svg.getElementById('two');
+        var htext2 = svg.getElementById('htext2');
+        var otext2 = svg.getElementById('otext2');
+        var htext3 = svg.getElementById('htext3');
+
+        // Set Animate
+        tl.set([htext3], {
+          alpha: 0
+        })
+        .set([shortPolymertext,circleLabel], {
+          y: "+=10",
+          alpha: 0
+        });
+        // Animate
+        tl.to([circle, hText], 1, {
+          x: "108",
+          ease: Power2.easeOut
+        })
+        .to([longPolymertext], .5, {
+          alpha: 0
+        }, "-=1")
+        .to([h2oText], 1, {
+          x: "-80",
+          y: "60",
+          ease: Power2.easeOut
+        }, "-=1")
+        .to([plusText], .5, {
+          alpha: 0
+        }, "-=1")
+        .to([two], .5, {
+          alpha: 0
+        })
+        .to([htext2], .5, {
+          x: "-=20"
+        })
+        .to([otext2], .5, {
+          x: "+=10"
+        }, "-=.5")
+        .to([htext3], .5, {
+          alpha: 1,
+          x: "+=11"
+        }, "-=.5")
+        .to([h2oText], 1, {
+          y: 0,
+          x: "-=73"
+        })
+        .to([plusText], .1, {
+          x: "-=97",
+        })
+        .to([plusText], .5, {
+          alpha: 1
+        })
+        .to([circleLabel, shortPolymertext], .5, {
+          y: "-=10",
+          alpha: 1
+        });
+        // slow the animation down
+        tl.timeScale(.8);
+        // don't play it by default
+        tl.pause();
+        // play button
+        playButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          tl.play();
+        });
+        // replay button
+        replayButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          tl.progress(0);
+          tl.pause();
+        });
+      }
+
+    });
+  </script>
+</dom-module>
